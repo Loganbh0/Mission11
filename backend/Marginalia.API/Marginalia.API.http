@@ -1,0 +1,6 @@
+@Marginalia.API_HostAddress = http://localhost:5021
+
+GET {{Marginalia.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
