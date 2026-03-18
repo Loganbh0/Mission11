@@ -44,6 +44,7 @@ export default function BookList() {
 
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(5)
+  const [sortBy, setSortBy] = useState<'id' | 'title'>('id')
   const [totalCount, setTotalCount] = useState(0)
   const [totalPages, setTotalPages] = useState(0)
 
@@ -55,7 +56,7 @@ export default function BookList() {
         setLoading(true)
         setError(null)
 
-        const url = `${BOOKS_ENDPOINT}/paged?page=${page}&pageSize=${pageSize}`
+        const url = `${BOOKS_ENDPOINT}/paged?page=${page}&pageSize=${pageSize}&sortBy=${sortBy}`
         const res = await fetch(url)
         if (!res.ok) {
           throw new Error(`Request failed: ${res.status} ${res.statusText}`)
@@ -87,7 +88,7 @@ export default function BookList() {
     return () => {
       isCancelled = true
     }
-  }, [page, pageSize])
+  }, [page, pageSize, sortBy])
 
   if (loading) {
     return <p>Loading books...</p>
@@ -126,6 +127,21 @@ export default function BookList() {
               <option value={5}>5</option>
               <option value={10}>10</option>
               <option value={20}>20</option>
+            </select>
+          </label>
+
+          <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            Sort:
+            <select
+              value={sortBy}
+              onChange={(e) => {
+                const next = e.target.value === 'title' ? 'title' : 'id'
+                setSortBy(next)
+                setPage(1)
+              }}
+            >
+              <option value="id">Default</option>
+              <option value="title">Title (A-Z)</option>
             </select>
           </label>
 

@@ -24,7 +24,8 @@ namespace Marginalia.API.Controllers
         [HttpGet("paged")]
         public async Task<ActionResult<PagedBooksResponse>> GetPagedBooks(
             [FromQuery] int page = 1,
-            [FromQuery] int pageSize = 5)
+            [FromQuery] int pageSize = 5,
+            [FromQuery] string sortBy = "id")
         {
             if (page < 1)
             {
@@ -44,8 +45,16 @@ namespace Marginalia.API.Controllers
                 page = totalPages;
             }
 
-            var items = await _context.Books
-                .OrderBy(b => b.BookId)
+            if (sortBy != "id" && sortBy != "title")
+            {
+                sortBy = "id";
+            }
+
+            IQueryable<Book> orderedQuery = sortBy == "title"
+                ? _context.Books.OrderBy(b => b.Title).ThenBy(b => b.BookId)
+                : _context.Books.OrderBy(b => b.BookId);
+
+            var items = await orderedQuery
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
