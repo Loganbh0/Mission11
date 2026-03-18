@@ -105,18 +105,19 @@ export default function BookList() {
   const showPagination = totalCount > 0 && totalPages > 1
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, marginBottom: 16 }}>
-        <div style={{ textAlign: 'left' }}>
-          <p style={{ margin: 0 }}>
-            Page {page} of {totalPages}
+    <div className="container py-4">
+      <div className="book-header d-flex justify-content-between align-items-center mb-4 gap-3">
+        <div className="text-start">
+          <p className="mb-0">
+            Page {page} of {totalPages} {totalCount > 0 ? `(Total: ${totalCount})` : ''}
           </p>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            Results per page:
+        <div className="d-flex align-items-center gap-3 flex-wrap justify-content-end">
+          <label className="d-flex align-items-center gap-2">
+            <span className="text-nowrap">Results per page</span>
             <select
+              className="form-select form-select-sm"
               value={pageSize}
               onChange={(e) => {
                 const next = Number(e.target.value) || 5
@@ -130,9 +131,10 @@ export default function BookList() {
             </select>
           </label>
 
-          <label style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            Sort:
+          <label className="d-flex align-items-center gap-2">
+            <span className="text-nowrap">Sort</span>
             <select
+              className="form-select form-select-sm"
               value={sortBy}
               onChange={(e) => {
                 const next = e.target.value === 'title' ? 'title' : 'id'
@@ -140,61 +142,64 @@ export default function BookList() {
                 setPage(1)
               }}
             >
-              <option value="id">Default</option>
+              <option value="id">Default (BookId)</option>
               <option value="title">Title (A-Z)</option>
             </select>
           </label>
 
-          <button
-            onClick={() => setPage((p) => Math.max(1, p - 1))}
-            disabled={loading || page <= 1 || !showPagination}
-          >
-            Prev
-          </button>
-          <button
-            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-            disabled={loading || page >= totalPages || !showPagination}
-          >
-            Next
-          </button>
+          <div className="d-flex gap-2">
+            <button
+              className="btn btn-book-accent btn-sm"
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={loading || page <= 1 || !showPagination}
+            >
+              Prev
+            </button>
+            <button
+              className="btn btn-book-accent btn-sm"
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              disabled={loading || page >= totalPages || !showPagination}
+            >
+              Next
+            </button>
+          </div>
         </div>
       </div>
 
-      {books.map((book) => (
-        <article
-          key={book.bookId}
-          style={{
-            textAlign: 'left',
-            border: '1px solid var(--border)',
-            borderRadius: '8px',
-            padding: '16px',
-            margin: '12px 0'
-          }}
-        >
-          <h3 style={{ margin: '0 0 8px 0' }}>{book.title || '(Untitled)'}</h3>
-          <p>
-            <strong>Author:</strong> {book.author}
-          </p>
-          <p>
-            <strong>Publisher:</strong> {book.publisher}
-          </p>
-          <p>
-            <strong>ISBN:</strong> {book.isbn}
-          </p>
-          <p>
-            <strong>Classification:</strong> {book.classification}
-          </p>
-          <p>
-            <strong>Category:</strong> {book.category}
-          </p>
-          <p>
-            <strong>Page Count:</strong> {book.pageCount}
-          </p>
-          <p>
-            <strong>Price:</strong> ${book.price}
-          </p>
-        </article>
-      ))}
+      <div className="row g-3">
+        {books.map((book) => (
+          <div className="col-12" key={book.bookId}>
+            <div className="card book-card">
+              <div className="card-body text-start">
+                <h3 className="card-title h5 mb-2 text-book-accent">
+                  {book.title || '(Untitled)'}
+                </h3>
+                <p className="mb-1">
+                  <strong>Author:</strong> {book.author}
+                </p>
+                <p className="mb-1">
+                  <strong>Publisher:</strong> {book.publisher}
+                </p>
+                <p className="mb-1">
+                  <strong>ISBN:</strong> {book.isbn}
+                </p>
+                <p className="mb-1">
+                  <strong>Classification:</strong> {book.classification}
+                </p>
+                <p className="mb-1">
+                  <strong>Category:</strong> {book.category}
+                </p>
+                <p className="mb-1">
+                  <strong>Page Count:</strong> {book.pageCount}
+                </p>
+                <p className="mb-0 text-book-accent">
+                  <strong>Price:</strong> ${book.price}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
