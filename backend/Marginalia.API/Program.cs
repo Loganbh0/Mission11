@@ -27,7 +27,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseCors(x => x.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader());
+app.UseCors(x => x.WithOrigins("http://localhost:3000", "http://localhost:5173").AllowAnyMethod().AllowAnyHeader());
 
 app.UseHttpsRedirection();
 

@@ -147,3 +147,4 @@ C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\o
 C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\Marginalia.API.pdb
 C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\Marginalia.API.genruntimeconfig.cache
 C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\ref\Marginalia.API.dll
+C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\Marginalia.API.sourcelink.json
