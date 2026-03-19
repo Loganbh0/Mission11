@@ -105,7 +105,7 @@ export default function BookList() {
   const showPagination = totalCount > 0 && totalPages > 1
 
   return (
-    <div className="container py-4">
+    <div className="py-2">
       <div className="book-header d-flex justify-content-between align-items-center mb-4 gap-3">
         <div className="text-start">
           <p className="mb-0">
@@ -168,33 +168,56 @@ export default function BookList() {
 
       <div className="row g-3">
         {books.map((book) => (
-          <div className="col-12" key={book.bookId}>
-            <div className="card book-card">
-              <div className="card-body text-start">
-                <h3 className="card-title h5 mb-2 text-book-accent">
+          <div className="col-12 col-md-6 col-lg-4" key={book.bookId}>
+            <div className="card book-card h-100">
+              <div className="card-body text-start d-flex flex-column">
+                <h3 className="card-title h6 mb-1 text-book-accent">
                   {book.title || '(Untitled)'}
                 </h3>
-                <p className="mb-1">
-                  <strong>Author:</strong> {book.author}
+                <p className="text-muted mb-2">
+                  <small>{book.author}</small>
                 </p>
-                <p className="mb-1">
-                  <strong>Publisher:</strong> {book.publisher}
-                </p>
-                <p className="mb-1">
-                  <strong>ISBN:</strong> {book.isbn}
-                </p>
-                <p className="mb-1">
-                  <strong>Classification:</strong> {book.classification}
-                </p>
-                <p className="mb-1">
-                  <strong>Category:</strong> {book.category}
-                </p>
-                <p className="mb-1">
-                  <strong>Page Count:</strong> {book.pageCount}
-                </p>
-                <p className="mb-0 text-book-accent">
-                  <strong>Price:</strong> ${book.price}
-                </p>
+
+                <dl className="row mb-0">
+                  <dt className="col-5 fw-semibold">
+                    <small>Publisher</small>
+                  </dt>
+                  <dd className="col-7">
+                    <small>{book.publisher}</small>
+                  </dd>
+
+                  <dt className="col-5 fw-semibold">
+                    <small>ISBN</small>
+                  </dt>
+                  <dd className="col-7">
+                    <small>{book.isbn}</small>
+                  </dd>
+
+                  <dt className="col-5 fw-semibold">
+                    <small>Classification</small>
+                  </dt>
+                  <dd className="col-7">
+                    <small>{book.classification}</small>
+                  </dd>
+
+                  <dt className="col-5 fw-semibold">
+                    <small>Category</small>
+                  </dt>
+                  <dd className="col-7">
+                    <small>{book.category}</small>
+                  </dd>
+
+                  <dt className="col-5 fw-semibold">
+                    <small>Pages</small>
+                  </dt>
+                  <dd className="col-7">
+                    <small>{book.pageCount}</small>
+                  </dd>
+                </dl>
+
+                <div className="mt-auto pt-2">
+                  <div className="text-book-accent fw-semibold">${book.price}</div>
+                </div>
               </div>
             </div>
           </div>

@@ -70,6 +70,9 @@
 .book-card {
   border-color: rgba(122, 143, 92, 0.65) !important;
   background-color: rgba(244, 230, 208, 0.03);
+  box-shadow:
+    rgba(0, 0, 0, 0.06) 0 8px 18px -10px,
+    rgba(0, 0, 0, 0.04) 0 2px 6px -4px;
 }
 
 .btn-book-accent {
@@ -86,6 +89,10 @@
   color: var(--burnt-brown) !important;
 }
 
+.book-subtitle {
+  color: rgba(139, 94, 60, 0.85);
+}
+
 @media (prefers-color-scheme: dark) {
   .book-header {
     background-color: rgba(122, 90, 58, 0.25);
@@ -94,6 +101,11 @@
 
   .book-card {
     background-color: rgba(122, 90, 58, 0.06);
+    box-shadow: rgba(0, 0, 0, 0.35) 0 10px 24px -14px;
+  }
+
+  .book-subtitle {
+    color: rgba(194, 140, 99, 0.85);
   }
 }
 
