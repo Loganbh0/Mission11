@@ -8,6 +8,10 @@
   --accent-bg: rgba(170, 59, 255, 0.1);
   --accent-border: rgba(170, 59, 255, 0.5);
   --social-bg: rgba(244, 243, 236, 0.5);
+  --burnt-brown: #8b5e3c;
+  --sepia: #f4e6d0;
+  --sage: #7a8f5c;
+  --page-bg: rgba(122, 143, 92, 0.18);
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
@@ -19,7 +23,7 @@
   letter-spacing: 0.18px;
   color-scheme: light dark;
   color: var(--text);
-  background: var(--bg);
+  background: var(--page-bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -41,6 +45,10 @@
     --accent-bg: rgba(192, 132, 252, 0.15);
     --accent-border: rgba(192, 132, 252, 0.5);
     --social-bg: rgba(47, 48, 58, 0.5);
+    --burnt-brown: #c28c63;
+    --sepia: #7a5a3a;
+    --sage: #92aa6b;
+    --page-bg: rgba(146, 170, 107, 0.1);
     --shadow:
       rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
   }
@@ -50,12 +58,62 @@
   }
 }
 
+#book-header,
+.book-header {
+  background-color: rgba(244, 230, 208, 0.55);
+  border: 1px solid rgba(122, 143, 92, 0.4);
+  color: var(--burnt-brown);
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+}
+
+.book-card {
+  border-color: rgba(122, 143, 92, 0.65) !important;
+  background-color: rgba(244, 230, 208, 0.03);
+  box-shadow:
+    rgba(0, 0, 0, 0.06) 0 8px 18px -10px,
+    rgba(0, 0, 0, 0.04) 0 2px 6px -4px;
+}
+
+.btn-book-accent {
+  color: var(--burnt-brown) !important;
+  border-color: var(--sage) !important;
+  background-color: transparent !important;
+}
+
+.btn-book-accent:hover {
+  background-color: rgba(122, 143, 92, 0.15) !important;
+}
+
+.text-book-accent {
+  color: var(--burnt-brown) !important;
+}
+
+.book-subtitle {
+  color: rgba(139, 94, 60, 0.85);
+}
+
+@media (prefers-color-scheme: dark) {
+  .book-header {
+    background-color: rgba(122, 90, 58, 0.25);
+    border-color: rgba(146, 170, 107, 0.35);
+  }
+
+  .book-card {
+    background-color: rgba(122, 90, 58, 0.06);
+    box-shadow: rgba(0, 0, 0, 0.35) 0 10px 24px -14px;
+  }
+
+  .book-subtitle {
+    color: rgba(194, 140, 99, 0.85);
+  }
+}
+
 #root {
   width: 1126px;
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
-  border-inline: 1px solid var(--border);
   min-height: 100svh;
   display: flex;
   flex-direction: column;
