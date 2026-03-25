@@ -13,11 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Marginalia.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a7a5009e6bc3f4d8b21f38865347f312dadc4c69")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+99ab92dbd90971351110c5cc61d5ce2952e9e443")]
->>>>>>> 6315cd99037d81b8e0ed385fbeddece51e553d65
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+86b5a6805feca0f45f156b61377f699d3a099e2a")]
 [assembly: System.Reflection.AssemblyProductAttribute("Marginalia.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Marginalia.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

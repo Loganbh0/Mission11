@@ -1,11 +1,3 @@
-C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\Marginalia.API.csproj.AssemblyReference.cache
-C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\rpswa.dswa.cache.json
-C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\Marginalia.API.GeneratedMSBuildEditorConfig.editorconfig
-C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\Marginalia.API.AssemblyInfoInputs.cache
-C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\Marginalia.API.AssemblyInfo.cs
-C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\Marginalia.API.csproj.CoreCompileInputs.cache
-C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\Marginalia.API.MvcApplicationPartsAssemblyInfo.cs
-C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\Marginalia.API.MvcApplicationPartsAssemblyInfo.cache
 C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\bin\Debug\net10.0\appsettings.Development.json
 C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\bin\Debug\net10.0\appsettings.json
 C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\bin\Debug\net10.0\Marginalia.API.staticwebassets.endpoints.json
@@ -132,6 +124,15 @@ C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\b
 C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\bin\Debug\net10.0\runtimes\win-arm64\native\e_sqlite3.dll
 C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\bin\Debug\net10.0\runtimes\win-x64\native\e_sqlite3.dll
 C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\bin\Debug\net10.0\runtimes\win-x86\native\e_sqlite3.dll
+C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\Marginalia.API.csproj.AssemblyReference.cache
+C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\rpswa.dswa.cache.json
+C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\Marginalia.API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\Marginalia.API.AssemblyInfoInputs.cache
+C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\Marginalia.API.AssemblyInfo.cs
+C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\Marginalia.API.csproj.CoreCompileInputs.cache
+C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\Marginalia.API.MvcApplicationPartsAssemblyInfo.cs
+C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\Marginalia.API.MvcApplicationPartsAssemblyInfo.cache
+C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\Marginalia.API.sourcelink.json
 C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\rjimswa.dswa.cache.json
 C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
 C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
@@ -147,4 +148,3 @@ C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\o
 C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\Marginalia.API.pdb
 C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\Marginalia.API.genruntimeconfig.cache
 C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\ref\Marginalia.API.dll
-C:\Master Folder\IS 413 - Enterprise App Dev\Marginalia\backend\Marginalia.API\obj\Debug\net10.0\Marginalia.API.sourcelink.json
