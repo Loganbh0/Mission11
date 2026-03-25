@@ -1,73 +1,55 @@
-# React + TypeScript + Vite
+# Marginalia Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + TypeScript + Vite frontend for the Marginalia bookstore project.
 
-Currently, two official plugins are available:
+## Current Features
+- Book list rendered as responsive Bootstrap cards.
+- Server-driven pagination with page sizes 5, 10, and 20.
+- Sorting by title (A-Z) or default `BookId`.
+- Category filter (All + options from `GET /api/Book/categories`) with correct filtered pagination totals.
+- Session cart (`sessionStorage` key `marginalia_cart_v1`): add to cart from each card, summary on browse page, full cart at `/cart` with qty and totals.
+- Continue shopping: catalog context saved under `marginalia_browse_v1` (page, page size, sort, category); returning from `/cart` restores it.
+- Client routes: `/` (browse), `/cart` (`react-router-dom`).
+- Loading and error states for API requests.
+- Gentle bookstore theme styling.
+- **Bootstrap Icons** (`bootstrap-icons` + CSS in `src/main.tsx`): book/cart/bag/info icons on browse, cart summary, cart page, and accordion heading.
+- **Bootstrap Accordion** (`StoreInfoAccordion.tsx` at bottom of `/`): origin, FAQ, privacy placeholder copy; **Bootstrap bundle JS** in `main.tsx` powers `data-bs-toggle` collapse.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Learning Suite / submission notes (Mission 12)
 
-## React Compiler
+Use this wording (or adapt) for the assignment comment about the two Bootstrap features:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. **Bootstrap Icons** — Imported `bootstrap-icons/font/bootstrap-icons.css` in [`src/main.tsx`](src/main.tsx). Icon examples: `bi-book` on the browse page title ([`BrowsePage.tsx`](src/pages/BrowsePage.tsx)), `bi-cart3` in [`CartSummary.tsx`](src/components/CartSummary.tsx), `bi-bag-check` on [`CartPage.tsx`](src/pages/CartPage.tsx), `bi-info-circle` in [`StoreInfoAccordion.tsx`](src/components/StoreInfoAccordion.tsx).
 
-## Expanding the ESLint configuration
+2. **Bootstrap Accordion (Collapse)** — [`StoreInfoAccordion.tsx`](src/components/StoreInfoAccordion.tsx) on the browse route below the book grid: `accordion`, `accordion-flush`, `accordion-item`, `accordion-button`, `accordion-collapse`, `collapse`, `data-bs-parent`, plus ARIA on headers. Requires `import 'bootstrap/dist/js/bootstrap.bundle.min.js'` in [`main.tsx`](src/main.tsx).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## API Dependency
+The frontend expects the backend API running at:
+- `https://localhost:5000`
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Endpoints used by the list:
+- `GET /api/Book/categories`
+- `GET /api/Book/paged?page=1&pageSize=5&sortBy=title` (optional `&category=...`)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Run Locally
+From `frontend/`:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Then open the local Vite URL shown in terminal (commonly `http://localhost:5173`).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Project File Guide
+- `src/main.tsx` Bootstrap CSS, Bootstrap Icons CSS, Bootstrap bundle JS, app entry.
+- `src/App.tsx` `CartProvider`, router, and routes.
+- `src/pages/BrowsePage.tsx` header, `CartSummary`, `BookList`, `StoreInfoAccordion`.
+- `src/pages/CartPage.tsx` cart lines, totals, Continue shopping.
+- `src/context/CartContext.tsx` cart state and persistence.
+- `src/components/BookList.tsx` list UI, filters, and Add to cart.
+- `src/components/CartSummary.tsx` compact cart link and totals.
+- `src/components/StoreInfoAccordion.tsx` footer accordion (Mission 12 Bootstrap extension).
+- `src/utils/browseStateStorage.ts` browse context for Continue shopping.
+- `src/types/Book.ts`, `src/types/PagedBooks.ts`, `src/types/CartLineItem.ts`.
+- `src/index.css` theme and global styling.

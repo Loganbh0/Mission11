@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Marginalia.API.Data;
@@ -25,7 +27,8 @@ namespace Marginalia.API.Controllers
         public async Task<ActionResult<PagedBooksResponse>> GetPagedBooks(
             [FromQuery] int page = 1,
             [FromQuery] int pageSize = 5,
-            [FromQuery] string sortBy = "id")
+            [FromQuery] string sortBy = "id",
+            [FromQuery] string? category = null)
         {
             if (page < 1)
             {
@@ -37,7 +40,15 @@ namespace Marginalia.API.Controllers
                 pageSize = 5;
             }
 
-            var totalCount = await _context.Books.CountAsync();
+            IQueryable<Book> query = _context.Books;
+
+            if (!string.IsNullOrWhiteSpace(category))
+            {
+                var categoryTrimmed = category.Trim();
+                query = query.Where(b => b.Category == categoryTrimmed);
+            }
+
+            var totalCount = await query.CountAsync();
             var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
 
             if (totalPages > 0 && page > totalPages)
@@ -51,8 +62,8 @@ namespace Marginalia.API.Controllers
             }
 
             IQueryable<Book> orderedQuery = sortBy == "title"
-                ? _context.Books.OrderBy(b => b.Title).ThenBy(b => b.BookId)
-                : _context.Books.OrderBy(b => b.BookId);
+                ? query.OrderBy(b => b.Title).ThenBy(b => b.BookId)
+                : query.OrderBy(b => b.BookId);
 
             var items = await orderedQuery
                 .Skip((page - 1) * pageSize)
@@ -67,6 +78,18 @@ namespace Marginalia.API.Controllers
                 TotalCount = totalCount,
                 TotalPages = totalPages
             };
+        }
+
+        [HttpGet("categories")]
+        public async Task<ActionResult<List<string>>> GetCategories()
+        {
+            var categories = await _context.Books
+                .Select(b => b.Category)
+                .Distinct()
+                .OrderBy(c => c)
+                .ToListAsync();
+
+            return categories;
         }
 
         [HttpGet("{id}")]

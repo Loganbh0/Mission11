@@ -1,21 +1,21 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-import BookList from './components/BookList'
+import { CartProvider } from './context/CartContext'
+import BrowsePage from './pages/BrowsePage'
+import CartPage from './pages/CartPage'
 
 function App() {
   return (
-    <div className="container py-5">
-      <header className="text-center mb-4">
-        <h1 className="mb-2">Marginalia Bookstore</h1>
-        <p className="book-subtitle mb-1">
-          “Marginalia” describes the notes readers write in the margins of their books.
-        </p>
-        <p className="book-subtitle mb-0">
-          We know you’ll love these books enough to make your own marginalia.
-        </p>
-      </header>
-
-      <BookList />
-    </div>
+    <CartProvider>
+      <BrowserRouter>
+        <div className="container py-5">
+          <Routes>
+            <Route path="/" element={<BrowsePage />} />
+            <Route path="/cart" element={<CartPage />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </CartProvider>
   )
 }
 
