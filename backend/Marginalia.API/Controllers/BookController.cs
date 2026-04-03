@@ -102,5 +102,56 @@ namespace Marginalia.API.Controllers
             }
             return book;
         }
+
+        [HttpPost("AddBook")]
+        public async Task<ActionResult<Book>> AddBook([FromBody] Book? newBook)
+        {
+            if (newBook == null)
+            {
+                return BadRequest("Request body could not be parsed as a book.");
+            }
+
+            newBook.BookId = 0;
+            _context.Books.Add(newBook);
+            await _context.SaveChangesAsync();
+            return Ok(newBook);
+        }
+
+        [HttpPut("UpdateBook/{bookId}")]
+        public async Task<ActionResult<Book>> UpdateBook(int bookId, [FromBody] Book updatedBook)
+        {
+            var existing = await _context.Books.FindAsync(bookId);
+            if (existing == null)
+            {
+                return NotFound("Book not found");
+            }
+
+            existing.Title = updatedBook.Title;
+            existing.Author = updatedBook.Author;
+            existing.Publisher = updatedBook.Publisher;
+            existing.ISBN = updatedBook.ISBN;
+            existing.Classification = updatedBook.Classification;
+            existing.Category = updatedBook.Category;
+            existing.PageCount = updatedBook.PageCount;
+            existing.Price = updatedBook.Price;
+
+            _context.Books.Update(existing);
+            await _context.SaveChangesAsync();
+            return Ok(existing);
+        }
+
+        [HttpDelete("DeleteBook/{bookId}")]
+        public async Task<IActionResult> DeleteBook(int bookId)
+        {
+            var existing = await _context.Books.FindAsync(bookId);
+            if (existing == null)
+            {
+                return NotFound("Book not found");
+            }
+
+            _context.Books.Remove(existing);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }

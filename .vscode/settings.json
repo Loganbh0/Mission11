@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/ddd1a626-61f9-43c0-a1c9-167131418afb/resourceGroups/appsvc_windows_eastus/providers/Microsoft.Web/sites/Marginalia-Hanson-Backend",
+  "appService.deploySubpath": "backend\\Marginalia.API\\publish"
+}

@@ -5,18 +5,16 @@ Repository-specific operating guide for AI assistants working on the Marginalia 
 
 ## Priority Responsibilities
 - Preserve working catalog behavior (book list, paging, title sort).
-- Implement Mission 12 requirements incrementally and verify each slice.
+- **Mission 12** deliverables remain regression targets: category filter, session cart, continue shopping, Bootstrap extensions.
+- **Mission 13 / Phase 6:** book **CRUD** (API + admin UI), **`frontend/public/routes.json`** for Azure SPA routing, **Azure deployment**, submission link (deployed URL or GitHub).
 - Keep backend API contracts and frontend types synchronized.
 - Keep docs aligned with code after meaningful behavior changes.
 
 ## Role Expectations
 
 ### Planner
-- Break Mission 12 work into small milestones:
-  - category filter,
-  - cart,
-  - continue shopping,
-  - bootstrap feature additions.
+- **Mission 12 (done):** category filter, cart, continue shopping, Bootstrap feature additions.
+- **Mission 13:** branch/workflow for Phase 6; backend mutations; admin React route; `routes.json`; Azure plan (CORS, API URL, persistence); manual test plan including deep links on deployed static host.
 - Call out assumptions, compatibility risks, and manual test plan.
 
 ### Implementer
@@ -28,7 +26,8 @@ Repository-specific operating guide for AI assistants working on the Marginalia 
 - Focus on regressions in:
   - filtered pagination math,
   - cart totals/quantity calculations,
-  - browsing state restoration.
+  - browsing state restoration,
+  - **Mission 13:** catalog totals after create/update/delete; production CORS and API connectivity.
 
 ### Doc Writer
 - Update `ROADMAP.md` and `DECISIONS.md` when implementation direction changes.
@@ -45,6 +44,7 @@ Ask the user before proceeding when:
 - Cart persistence strategy is unclear (session-only vs backend-backed).
 - URL/state restore expectations for Continue Shopping are ambiguous.
 - A proposed API change could break existing frontend behavior.
+- **Mission 13:** Azure subscription/resource layout, connection strings or secrets handling, or whether admin routes should be authenticated (PDF does not require auth unless course adds it).
 
 ## Mission 12 Quality Checklist
 - Category filter affects both result set and pagination totals.
@@ -52,4 +52,11 @@ Ask the user before proceeding when:
 - Cart persists during session navigation.
 - Continue Shopping restores browsing context.
 - Two additional Bootstrap features are implemented and documented.
+
+## Mission 13 Quality Checklist
+- Users can **add**, **update**, and **delete** books; changes persist in the database.
+- Catalog read paths remain correct after mutations (paging and category behavior).
+- **`frontend/public/routes.json`** exists with assignment-specified catch-all for Azure SPA deep links.
+- App is **deployed to Azure** (or GitHub link submitted if deploy is not used, per assignment).
+- Learning Suite receives the **deployed site URL** when applicable.
 

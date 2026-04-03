@@ -146,6 +146,35 @@ Mission 12 requires two Bootstrap capabilities beyond what was already used in c
 ### Rollback Strategy
 Remove `bootstrap-icons` dependency and related imports; delete `StoreInfoAccordion` usage and component file.
 
+## 2026-04-01 - Mission 13 Phase 6 Book Admin, Azure Deploy, SPA routes.json
+
+### Status
+Accepted (assignment requirements); book mutation routes and admin UI **implemented** (WaterProject-style verb routes on `BookController`); Azure topology **Proposed** until deploy
+
+### Context
+Mission 13 continues the bookstore app on a Phase 6 branch. The assignment requires: **CRUD** for books in the database, **deployment to Azure**, and a **`routes.json`** file under the React `public` folder so static hosting serves `index.html` for deep client routes (e.g. `/adminbooks`), matching SPA behavior.
+
+### Decision
+- **SPA fallback (fixed by assignment):** Add `frontend/public/routes.json` with the instructor-provided shape: a single route mapping `/*` to `/index.html` with HTTP status `200`, so Azure static web hosting does not return 404 when users or TAs navigate directly to a React route.
+- **Book administration (implemented):** Extend `BookController` with verb-style routes aligned with the course reference project:
+  - `POST /api/Book/AddBook` — body `Book`; `BookId` forced to `0` before insert; returns created entity.
+  - `PUT /api/Book/UpdateBook/{bookId}` — body `Book`; copies scalar fields onto tracked row; `404` if missing.
+  - `DELETE /api/Book/DeleteBook/{bookId}` — `204 No Content` on success; `404` if missing.
+  Literal segments avoid clashing with `GET /api/Book/{id}`.
+- **Admin UI (implemented):** React route **`/adminbooks`** → `frontend/src/pages/AdminBooksPage.tsx`; fetches via `GET /api/Book/paged` (no category); mutations via `frontend/src/api/BooksAPI.ts`; forms `NewBookForm.tsx` / `EditBookForm.tsx`; shared payload normalization in `frontend/src/utils/bookPayload.ts`.
+- **Azure (Proposed):** Host the SPA and API per course lab guidance (e.g. Static Web Apps with API, App Service, or other prescribed pattern). Document concrete resource names, connection strings, and CORS origins in this ADR or `RUNBOOK.md` after the first successful deploy—**do not commit secrets**.
+
+### Alternatives Considered
+- **No `routes.json`:** Rejected; assignment explicitly requires it for TA navigation on Azure.
+- **Admin-only Swagger without UI:** Rejected for deliverable completeness; assignment implies user-facing add/delete/update.
+
+### Consequences
+- Pros: aligns with grading expectations; deep links work on static hosts; catalog remains the primary storefront.
+- Cons: production configuration (CORS, HTTPS, connection strings, database file or serverless limits) adds operational surface; mutation APIs require validation and regression checks on `GET /api/Book/paged`.
+
+### Rollback Strategy
+Remove mutation endpoints and admin UI; delete `routes.json` if reverting Phase 6; restore local-only `appsettings` and development CORS.
+
 ## ADR Template
 
 ### YYYY-MM-DD - Short summary

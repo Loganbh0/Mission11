@@ -1,7 +1,7 @@
 # Runbook
 
 ## Purpose
-Use this runbook for safe, repeatable development on the Mission 12 bookstore project.
+Use this runbook for safe, repeatable development on the Marginalia bookstore project (Mission 12 complete; **Mission 13 / Phase 6** adds book CRUD, Azure deployment, and `public/routes.json`).
 
 ## Local Startup
 
@@ -30,7 +30,7 @@ Use this runbook for safe, repeatable development on the Mission 12 bookstore pr
    - UI components and Bootstrap layout.
 3. Implement smallest vertical slice.
 4. Verify end-to-end before moving to next slice.
-5. Update docs (`ROADMAP.md`, `DECISIONS.md`) for any contract or behavior changes.
+5. Update docs (`ROADMAP.md`, `DECISIONS.md`, `ARCHITECTURE.md`, `STRUCTURE.md`, `RUNBOOK.md`) for any contract, mutation API, or deployment behavior changes.
 
 ## Mission 12 Verification Checklist
 
@@ -56,6 +56,29 @@ Use this runbook for safe, repeatable development on the Mission 12 bookstore pr
 #### Learning Suite submission note (copy/paste)
 1. **Bootstrap Icons** — package `bootstrap-icons`, CSS imported in `frontend/src/main.tsx`; icons used in `BrowsePage.tsx`, `CartSummary.tsx`, `CartPage.tsx`, `StoreInfoAccordion.tsx`.
 2. **Bootstrap Accordion / Collapse** — `accordion`, `accordion-item`, `accordion-button`, `accordion-collapse`, `data-bs-toggle="collapse"`, `data-bs-target`, `data-bs-parent` in `frontend/src/components/StoreInfoAccordion.tsx` below the catalog on `/`.
+
+## Mission 13 Verification Checklist
+
+### Book CRUD (local)
+- Mutation endpoints: `POST /api/Book/AddBook`, `PUT /api/Book/UpdateBook/{bookId}`, `DELETE /api/Book/DeleteBook/{bookId}`; admin UI at **`/adminbooks`** (`AdminBooksPage.tsx`).
+- Use Swagger/UI or the admin page to **create** a book; confirm it appears in `GET /api/Book/paged` (and category list if applicable).
+- **Update** a book; confirm storefront list and cart-related reads reflect changes where expected.
+- **Delete** a book; confirm it no longer appears in paged results and operations behave safely (e.g. appropriate status if id missing).
+
+### Admin route and `routes.json`
+- After adding `frontend/public/routes.json`, confirm the file matches the assignment: `routes` with one entry mapping `/*` to `/index.html` with status `200`.
+- **Local dev:** Vite dev server may handle client routes differently than Azure; still verify in-app navigation to the admin route.
+- **Azure:** After deploy, open the deployed site, navigate in-app to the admin path, then **paste the admin URL directly** in the address bar and reload—should load the SPA (not 404). If 404, confirm `routes.json` is in `public/` and redeployed.
+
+### Azure deployment
+- Follow course materials for hosting the React build and the ASP.NET Core API (resource types, regions, and pricing per instructor).
+- Configure **CORS** on the API for the deployed frontend origin.
+- Set **API base URL** for the frontend via environment or build-time config (no secrets in git).
+- Document the production URLs and any one-time setup in this section once stable (replace this bullet list with concrete steps if helpful for your team).
+
+### Learning Suite submission (Mission 13)
+- Submit the **link to the deployed website** per the assignment.
+- If the site is not deployed, submit the **GitHub repository link** as instructed.
 
 ## Known Issues And Recovery
 - If `dotnet run` fails with file lock errors on `Marginalia.API.exe`, stop existing backend process and run again.

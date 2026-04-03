@@ -1,12 +1,12 @@
 # Prompts
 
 ## Purpose
-Prompt patterns for this specific bookstore project (Mission 12 continuation).
+Prompt patterns for this bookstore project: Mission 12 (complete) and **Mission 13 / Phase 6** (book admin, Azure, `routes.json`).
 
 ## Default Response Requirements
 For implementation or debugging responses, include:
 - affected layers (`frontend`, `backend`, `persistence`),
-- endpoint impacts (especially `/api/Book/paged` and future cart/category endpoints),
+- endpoint impacts (especially `/api/Book/paged`, category endpoints, and **Mission 13** book mutation endpoints),
 - verification checklist with concrete commands/tests,
 - risks and rollback notes for contract changes.
 
@@ -21,6 +21,18 @@ Use when user asks for category filtering, cart, continue-shopping, or Bootstrap
 6. Session/state strategy
 7. Verification checklist
 8. Assignment submission note impact
+
+## Template: Mission 13 / Phase 6 Feature Request
+Use for book CRUD, admin UI, `public/routes.json`, or Azure deployment tasks.
+
+1. Current behavior (read-only catalog + Mission 12 cart/browse state)
+2. Target behavior (mutations, admin route path, static hosting fallback, or production config)
+3. Layers/files to modify (`backend` controllers/DTOs, `frontend` pages/routes/env, `frontend/public/routes.json`, Azure settings)
+4. API changes (new verbs/routes, request bodies, status codes, validation) and impact on `GET /api/Book/paged`
+5. UI changes (admin forms/tables, navigation link to admin if any)
+6. Production concerns (CORS, API base URL, connection strings — no secrets in repo)
+7. Verification checklist (`dotnet run`, Swagger, `npm run dev` / `npm run build`, **Azure** deep-link test)
+8. Learning Suite impact (deployed URL vs GitHub link)
 
 ## Template: Backend Contract Change
 1. Endpoint(s) changed
@@ -49,4 +61,5 @@ Use when user asks for category filtering, cart, continue-shopping, or Bootstrap
 - Catalog endpoint responds: `/api/Book/paged?page=1&pageSize=5&sortBy=title`.
 - Pagination and sorting work in UI.
 - For Mission 12 features, verify category filter + cart persistence + continue shopping.
+- For Mission 13, verify book CRUD end-to-end, `routes.json` present, and deployed admin deep link (if using Azure).
 

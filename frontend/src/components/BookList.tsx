@@ -1,54 +1,16 @@
-﻿import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useCart } from '../context/CartContext'
 import type { Book } from '../types/Book'
-import type { PagedBooks } from '../types/PagedBooks'
 import {
   clampPageSize,
   readStoredBrowseView,
   writeStoredBrowseView
 } from '../utils/browseStateStorage'
-
-const BOOKS_ENDPOINT = 'https://localhost:5000/api/Book'
-
-function normalizeBook(raw: any): Book {
-  return {
-    bookId: raw.bookId ?? raw.BookId ?? 0,
-    title: raw.title ?? raw.Title ?? '',
-    author: raw.author ?? raw.Author ?? '',
-    publisher: raw.publisher ?? raw.Publisher ?? '',
-    isbn: raw.isbn ?? raw.ISBN ?? '',
-    classification: raw.classification ?? raw.Classification ?? '',
-    category: raw.category ?? raw.Category ?? '',
-    pageCount: raw.pageCount ?? raw.PageCount ?? 0,
-    price: raw.price ?? raw.Price ?? 0
-  }
-}
-
-function normalizePagedBooks(raw: any): PagedBooks {
-  const itemsRaw = raw?.items ?? raw?.Items ?? []
-
-  const pageRaw = raw?.page ?? raw?.Page ?? 1
-  const pageSizeRaw = raw?.pageSize ?? raw?.PageSize ?? 5
-  const totalCountRaw = raw?.totalCount ?? raw?.TotalCount ?? 0
-  const totalPagesRaw = raw?.totalPages ?? raw?.TotalPages ?? 0
-
-  const items = Array.isArray(itemsRaw) ? itemsRaw.map(normalizeBook) : []
-
-  return {
-    items,
-    page: Number(pageRaw) || 1,
-    pageSize: Number(pageSizeRaw) || 5,
-    totalCount: Number(totalCountRaw) || 0,
-    totalPages: Number(totalPagesRaw) || 0
-  }
-}
-
-function normalizeCategories(raw: unknown): string[] {
-  if (!Array.isArray(raw)) {
-    return []
-  }
-  return raw.map((c) => String(c ?? '').trim()).filter(Boolean)
-}
+import {
+  BOOKS_API_BASE,
+  normalizeCategories,
+  normalizePagedBooks
+} from '../utils/bookPayload'
 
 export default function BookList() {
   const { addToCart } = useCart()
@@ -82,7 +44,7 @@ export default function BookList() {
 
     async function loadCategories() {
       try {
-        const res = await fetch(`${BOOKS_ENDPOINT}/categories`)
+        const res = await fetch(`${BOOKS_API_BASE}/categories`)
         if (!res.ok) {
           return
         }
@@ -119,7 +81,7 @@ export default function BookList() {
         if (trimmedCategory) {
           params.set('category', trimmedCategory)
         }
-        const url = `${BOOKS_ENDPOINT}/paged?${params.toString()}`
+        const url = `${BOOKS_API_BASE}/paged?${params.toString()}`
         const res = await fetch(url)
         if (!res.ok) {
           throw new Error(`Request failed: ${res.status} ${res.statusText}`)

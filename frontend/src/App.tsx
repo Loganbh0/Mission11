@@ -3,6 +3,7 @@ import './App.css'
 import { CartProvider } from './context/CartContext'
 import BrowsePage from './pages/BrowsePage'
 import CartPage from './pages/CartPage'
+import AdminBooksPage from './pages/AdminBooksPage'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Routes>
             <Route path="/" element={<BrowsePage />} />
             <Route path="/cart" element={<CartPage />} />
+            <Route path="/adminbooks" element={<AdminBooksPage />} />
           </Routes>
         </div>
       </BrowserRouter>

@@ -1,7 +1,7 @@
 # Architecture
 
 ## Purpose
-This document describes the current architecture of the `Marginalia` bookstore app and the target direction for Mission 12.
+This document describes the current architecture of the `Marginalia` bookstore app, Mission 12 deliverables (complete), and the **planned** Mission 13 / Phase 6 direction (book admin, Azure, SPA `routes.json`).
 
 ## Current System
 
@@ -46,9 +46,17 @@ This document describes the current architecture of the `Marginalia` bookstore a
 4. Backend returns paged JSON payload.
 5. Frontend normalizes response shape and renders cards.
 
+## Mission 13 (Phase 6 — CRUD implemented; Azure pending)
+
+- **Write API:** `POST /api/Book/AddBook`, `PUT /api/Book/UpdateBook/{bookId}`, `DELETE /api/Book/DeleteBook/{bookId}` on `BookController` (WaterProject-style verb routes). Read catalog endpoints unchanged; mutations affect paged/category results as expected.
+- **Admin frontend:** React route **`/adminbooks`** with table + add/edit forms (`AdminBooksPage`, `BooksAPI`, `NewBookForm`, `EditBookForm`). The PDF does not mandate authentication; if the course adds auth later, document it in `DECISIONS.md`.
+- **Azure production:** Browser loads the deployed SPA; SPA calls the deployed API base URL. SQLite may remain for class deployments or be replaced per instructor/Azure constraints—confirm before production cutover.
+- **`frontend/public/routes.json`:** Required for deep navigation to client routes on **Azure static hosting** (catch-all to `index.html`); see `DECISIONS.md` ADR dated 2026-04-01.
+
 ## Architecture Rules For Future Changes
 - Keep API contract and frontend types aligned in the same change.
 - Keep list endpoints server-paginated and filter-aware (`Where` before `Skip`/`Take`).
 - For any cart behavior, define source of truth clearly (client session storage vs backend state) before coding.
 - Record notable contract or persistence choices in `DECISIONS.md`.
+- For book **mutations** and **deployment** (CORS, API URL, connection strings), update OpenAPI expectations, frontend env/config, and docs in the same change—never commit secrets.
 
