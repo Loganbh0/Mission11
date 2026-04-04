@@ -2,7 +2,7 @@ import type { Book } from "../types/Book";
 import type { PagedBooks } from "../types/PagedBooks";
 
 export const BOOKS_API_BASE =
-  "https://marginalia-hanson-backend-dkbgayffbhc8bde8.eastus-01.azurewebsites.net/api";
+  "https://marginalia-hanson-backend-dkbgayffbhc8bde8.eastus-01.azurewebsites.net/api/Book";
 
 export function normalizeBook(raw: any): Book {
   return {
