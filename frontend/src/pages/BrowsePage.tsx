@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import BookList from '../components/BookList'
 import CartSummary from '../components/CartSummary'
 import StoreInfoAccordion from '../components/StoreInfoAccordion'
@@ -18,7 +19,17 @@ export default function BrowsePage() {
             We know you’ll love these books enough to make your own marginalia.
           </p>
         </header>
-        <div className="align-self-stretch align-self-md-center" style={{ minWidth: '10rem' }}>
+        <div
+          className="align-self-stretch align-self-md-center d-flex flex-column flex-md-row gap-2"
+          style={{ minWidth: '10rem' }}
+        >
+          <Link
+            to="/adminbooks"
+            className="btn btn-outline-secondary d-inline-flex align-items-center justify-content-center gap-2 text-nowrap"
+          >
+            <i className="bi bi-journal-text" aria-hidden="true" />
+            Manage books
+          </Link>
           <CartSummary />
         </div>
       </div>
