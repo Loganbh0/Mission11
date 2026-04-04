@@ -1,3 +1,7 @@
+/**
+ * Application entry: `createRoot` mounts `<App />` on `#root`.
+ * Imports Bootstrap CSS/JS and icons, then global `index.css`.
+ */
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import 'bootstrap/dist/css/bootstrap.min.css'

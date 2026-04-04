@@ -22,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -39,18 +39,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "C:\\Master Folder\\IS 413 - Enterprise App Dev\\Marginalia\\backend\\Marginalia.API\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "backend\\Marginalia.API\\Properties\\launchSettings.json",
-              "ToolTip": "C:\\Master Folder\\IS 413 - Enterprise App Dev\\Marginalia\\backend\\Marginalia.API\\Properties\\launchSettings.json",
-              "RelativeToolTip": "backend\\Marginalia.API\\Properties\\launchSettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-03-17T03:57:36.28Z"
             },
             {
               "$type": "Document",
@@ -76,6 +64,18 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-17T03:55:29.131Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Master Folder\\IS 413 - Enterprise App Dev\\Marginalia\\backend\\Marginalia.API\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "backend\\Marginalia.API\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Master Folder\\IS 413 - Enterprise App Dev\\Marginalia\\backend\\Marginalia.API\\Properties\\launchSettings.json",
+              "RelativeToolTip": "backend\\Marginalia.API\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-17T03:57:36.28Z"
             }
           ]
         }

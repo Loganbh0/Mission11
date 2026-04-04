@@ -1,3 +1,7 @@
+/**
+ * Footer on BrowsePage: static marketing / FAQ / privacy copy.
+ * Uses Bootstrap accordion (`data-bs-toggle`); third panel mentions sessionStorage for cart + browse state.
+ */
 export default function StoreInfoAccordion() {
   return (
     <section className="mt-5 pt-4 border-top" aria-labelledby="store-info-heading">

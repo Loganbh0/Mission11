@@ -1,0 +1,187 @@
+/**
+ * Admin “add book” form: controlled inputs for all `Book` fields, POST via `addBook`.
+ * `bookId` stays 0 until the server returns the created row (parent may refetch the list).
+ */
+import { useState } from 'react'
+import type { Book } from '../types/Book'
+import { addBook } from '../api/BooksAPI'
+
+interface NewBookFormProps {
+  onSuccess: () => void
+  onCancel: () => void
+}
+
+export default function NewBookForm({ onSuccess, onCancel }: NewBookFormProps) {
+  const [submitError, setSubmitError] = useState<string | null>(null)
+  const [formData, setFormData] = useState<Book>({
+    bookId: 0,
+    title: '',
+    author: '',
+    publisher: '',
+    isbn: '',
+    classification: '',
+    category: '',
+    pageCount: 0,
+    price: 0
+  })
+
+  /** Maps input `name` to state; coerces `pageCount` and `price` to numbers. */
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    if (name === 'pageCount' || name === 'price') {
+      const n = value === '' ? 0 : Number(value)
+      setFormData({
+        ...formData,
+        [name]: Number.isNaN(n) ? 0 : n
+      })
+      return
+    }
+    setFormData({ ...formData, [name]: value })
+  }
+
+  /** POSTs `formData`; on success runs `onSuccess`; on failure shows `submitError`. */
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setSubmitError(null)
+    try {
+      await addBook(formData)
+      onSuccess()
+    } catch (err) {
+      console.error(err)
+      setSubmitError((err as Error).message)
+    }
+  }
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className="mb-4 book-card border rounded p-3 text-start"
+    >
+      <h2 className="h5 mb-3 text-book-accent">Add New Book</h2>
+      {submitError ? (
+        <p className="text-danger small mb-2">{submitError}</p>
+      ) : null}
+      <div className="row g-2">
+        <div className="col-md-6">
+          <label className="form-label small">
+            Title
+            <input
+              type="text"
+              name="title"
+              className="form-control form-control-sm"
+              value={formData.title}
+              onChange={handleChange}
+              required
+            />
+          </label>
+        </div>
+        <div className="col-md-6">
+          <label className="form-label small">
+            Author
+            <input
+              type="text"
+              name="author"
+              className="form-control form-control-sm"
+              value={formData.author}
+              onChange={handleChange}
+              required
+            />
+          </label>
+        </div>
+        <div className="col-md-6">
+          <label className="form-label small">
+            Publisher
+            <input
+              type="text"
+              name="publisher"
+              className="form-control form-control-sm"
+              value={formData.publisher}
+              onChange={handleChange}
+              required
+            />
+          </label>
+        </div>
+        <div className="col-md-6">
+          <label className="form-label small">
+            ISBN
+            <input
+              type="text"
+              name="isbn"
+              className="form-control form-control-sm"
+              value={formData.isbn}
+              onChange={handleChange}
+              required
+            />
+          </label>
+        </div>
+        <div className="col-md-6">
+          <label className="form-label small">
+            Classification
+            <input
+              type="text"
+              name="classification"
+              className="form-control form-control-sm"
+              value={formData.classification}
+              onChange={handleChange}
+              required
+            />
+          </label>
+        </div>
+        <div className="col-md-6">
+          <label className="form-label small">
+            Category
+            <input
+              type="text"
+              name="category"
+              className="form-control form-control-sm"
+              value={formData.category}
+              onChange={handleChange}
+              required
+            />
+          </label>
+        </div>
+        <div className="col-md-6">
+          <label className="form-label small">
+            Page count
+            <input
+              type="number"
+              name="pageCount"
+              className="form-control form-control-sm"
+              value={formData.pageCount}
+              onChange={handleChange}
+              min={0}
+              required
+            />
+          </label>
+        </div>
+        <div className="col-md-6">
+          <label className="form-label small">
+            Price
+            <input
+              type="number"
+              name="price"
+              className="form-control form-control-sm"
+              value={formData.price}
+              onChange={handleChange}
+              min={0}
+              step="0.01"
+              required
+            />
+          </label>
+        </div>
+      </div>
+      <div className="mt-3 d-flex flex-wrap gap-2">
+        <button type="submit" className="btn btn-book-accent btn-sm">
+          Add Book
+        </button>
+        <button
+          type="button"
+          className="btn btn-outline-secondary btn-sm"
+          onClick={onCancel}
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  )
+}

@@ -1,3 +1,7 @@
+/**
+ * Shopping cart: React context with `sessionStorage` backup (`marginalia_cart_v1`) so the cart
+ * survives client-side navigation within the same tab.
+ */
 import {
   createContext,
   useContext,
@@ -26,6 +30,7 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
+/** Best-effort parse of JSON cart lines; drops invalid rows. */
 function parseStoredCart(raw: string | null): CartLineItem[] {
   if (!raw) {
     return []
@@ -54,6 +59,7 @@ function parseStoredCart(raw: string | null): CartLineItem[] {
   }
 }
 
+/** Initial cart from storage (empty array if unavailable). */
 function readStoredCart(): CartLineItem[] {
   if (typeof sessionStorage === 'undefined') {
     return []
@@ -64,6 +70,7 @@ function readStoredCart(): CartLineItem[] {
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<CartLineItem[]>(() => readStoredCart())
 
+  // Mirror React state to sessionStorage on every cart change
   useEffect(() => {
     if (typeof sessionStorage === 'undefined') {
       return
@@ -75,6 +82,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [cart])
 
+  /**
+   * Adds a line or increments quantity for an existing `bookId` (default +1).
+   */
   const addToCart = (item: AddToCartInput) => {
     const qty = item.quantity ?? 1
     const add = Math.max(1, Math.floor(qty))
@@ -99,10 +109,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
     })
   }
 
+  /** Removes one line entirely. */
   const removeFromCart = (bookId: number) => {
     setCart((prev) => prev.filter((line) => line.bookId !== bookId))
   }
 
+  /**
+   * Sets quantity; if zero or negative after flooring, removes the line (same as remove).
+   */
   const updateQuantity = (bookId: number, quantity: number) => {
     const q = Math.floor(quantity)
     if (q <= 0) {
@@ -135,6 +149,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
   )
 }
 
+/**
+ * Hook for cart state and mutators; must be used under `CartProvider`.
+ */
 export function useCart() {
   const context = useContext(CartContext)
   if (!context) {

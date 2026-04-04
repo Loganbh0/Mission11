@@ -1,54 +1,25 @@
-﻿import { useEffect, useState } from 'react'
+/**
+ * Browse catalog (home page body): public book list with server-side paging and filters.
+ *
+ * - `writeStoredBrowseView` / `readStoredBrowseView`: remember page, page size, sort, and category between visits
+ *   (same browser tab session) for “Continue shopping”.
+ * - Categories: one GET on mount for the dropdown; failures leave only “All categories”.
+ * - Books: GET `/paged` whenever page, page size, sort, or category changes; uses `isCancelled` to ignore stale responses.
+ * - Each card calls `addToCart` with the list price as `unitPrice`.
+ */
+import { useEffect, useState } from 'react'
 import { useCart } from '../context/CartContext'
 import type { Book } from '../types/Book'
-import type { PagedBooks } from '../types/PagedBooks'
 import {
   clampPageSize,
   readStoredBrowseView,
   writeStoredBrowseView
 } from '../utils/browseStateStorage'
-
-const BOOKS_ENDPOINT = 'https://localhost:5000/api/Book'
-
-function normalizeBook(raw: any): Book {
-  return {
-    bookId: raw.bookId ?? raw.BookId ?? 0,
-    title: raw.title ?? raw.Title ?? '',
-    author: raw.author ?? raw.Author ?? '',
-    publisher: raw.publisher ?? raw.Publisher ?? '',
-    isbn: raw.isbn ?? raw.ISBN ?? '',
-    classification: raw.classification ?? raw.Classification ?? '',
-    category: raw.category ?? raw.Category ?? '',
-    pageCount: raw.pageCount ?? raw.PageCount ?? 0,
-    price: raw.price ?? raw.Price ?? 0
-  }
-}
-
-function normalizePagedBooks(raw: any): PagedBooks {
-  const itemsRaw = raw?.items ?? raw?.Items ?? []
-
-  const pageRaw = raw?.page ?? raw?.Page ?? 1
-  const pageSizeRaw = raw?.pageSize ?? raw?.PageSize ?? 5
-  const totalCountRaw = raw?.totalCount ?? raw?.TotalCount ?? 0
-  const totalPagesRaw = raw?.totalPages ?? raw?.TotalPages ?? 0
-
-  const items = Array.isArray(itemsRaw) ? itemsRaw.map(normalizeBook) : []
-
-  return {
-    items,
-    page: Number(pageRaw) || 1,
-    pageSize: Number(pageSizeRaw) || 5,
-    totalCount: Number(totalCountRaw) || 0,
-    totalPages: Number(totalPagesRaw) || 0
-  }
-}
-
-function normalizeCategories(raw: unknown): string[] {
-  if (!Array.isArray(raw)) {
-    return []
-  }
-  return raw.map((c) => String(c ?? '').trim()).filter(Boolean)
-}
+import {
+  BOOKS_API_BASE,
+  normalizeCategories,
+  normalizePagedBooks
+} from '../utils/bookPayload'
 
 export default function BookList() {
   const { addToCart } = useCart()
@@ -68,6 +39,7 @@ export default function BookList() {
   const [totalCount, setTotalCount] = useState(0)
   const [totalPages, setTotalPages] = useState(0)
 
+  // Persist browse state so "Continue shopping" and reloads restore the same view
   useEffect(() => {
     writeStoredBrowseView({
       page,
@@ -77,12 +49,14 @@ export default function BookList() {
     })
   }, [page, pageSize, sortBy, categoryFilter])
 
+  // One-time fetch of distinct categories for the filter dropdown
   useEffect(() => {
     let isCancelled = false
 
+    /** GET categories for the filter `<select>`; silent no-op on error. */
     async function loadCategories() {
       try {
-        const res = await fetch(`${BOOKS_ENDPOINT}/categories`)
+        const res = await fetch(`${BOOKS_API_BASE}/categories`)
         if (!res.ok) {
           return
         }
@@ -102,9 +76,13 @@ export default function BookList() {
     }
   }, [])
 
+  // Paged book list; depends on filters — server returns normalized page bounds
   useEffect(() => {
     let isCancelled = false
 
+    /**
+     * GET paged books with query params; normalizes response and syncs local page bounds with the server.
+     */
     async function loadBooks() {
       try {
         setLoading(true)
@@ -119,7 +97,7 @@ export default function BookList() {
         if (trimmedCategory) {
           params.set('category', trimmedCategory)
         }
-        const url = `${BOOKS_ENDPOINT}/paged?${params.toString()}`
+        const url = `${BOOKS_API_BASE}/paged?${params.toString()}`
         const res = await fetch(url)
         if (!res.ok) {
           throw new Error(`Request failed: ${res.status} ${res.statusText}`)
@@ -157,12 +135,14 @@ export default function BookList() {
     return <p style={{ textAlign: 'left', color: 'red' }}>{error}</p>
   }
 
+  // Prev/Next only matter when there is more than one page of results
   const showPagination = totalCount > 0 && totalPages > 1
 
   return (
     <div className="py-2">
       {loading ? <p className="mb-3">Loading books...</p> : null}
 
+      {/* Summary line + category / page size / sort + prev-next */}
       <div className="book-header d-flex justify-content-between align-items-center mb-4 gap-3">
         <div className="text-start">
           <p className="mb-0">
@@ -250,6 +230,7 @@ export default function BookList() {
         </p>
       ) : null}
 
+      {/* Responsive cards: metadata + add to cart */}
       <div className="row g-3">
         {books.map((book) => (
           <div className="col-12 col-md-6 col-lg-4" key={book.bookId}>

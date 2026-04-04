@@ -1,4 +1,8 @@
-﻿const STORAGE_KEY = 'marginalia_browse_v1'
+﻿/**
+ * Persists browse UI state in `sessionStorage` so “Continue shopping” and reloads restore
+ * page number, page size, sort, and category filter (key: `marginalia_browse_v1`).
+ */
+const STORAGE_KEY = 'marginalia_browse_v1'
 
 export type BrowseViewState = {
   page: number
@@ -14,6 +18,9 @@ const DEFAULTS: BrowseViewState = {
   categoryFilter: ''
 }
 
+/**
+ * Coerces arbitrary numbers to allowed page sizes (5, 10, or 20).
+ */
 export function clampPageSize(n: number): 5 | 10 | 20 {
   if (n === 10 || n === 20) {
     return n
@@ -21,6 +28,9 @@ export function clampPageSize(n: number): 5 | 10 | 20 {
   return 5
 }
 
+/**
+ * Reads saved browse state or returns defaults (SSR-safe if `sessionStorage` is missing).
+ */
 export function readStoredBrowseView(): BrowseViewState {
   if (typeof sessionStorage === 'undefined') {
     return DEFAULTS
@@ -42,6 +52,9 @@ export function readStoredBrowseView(): BrowseViewState {
   }
 }
 
+/**
+ * Writes the current browse state; ignores quota / private-mode errors.
+ */
 export function writeStoredBrowseView(state: BrowseViewState): void {
   if (typeof sessionStorage === 'undefined') {
     return

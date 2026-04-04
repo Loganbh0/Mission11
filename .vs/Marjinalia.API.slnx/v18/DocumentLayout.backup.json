@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\Master Folder\\IS 413 - Enterprise App Dev\\Marginalia\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BB33CA1B-78C9-291F-ADF0-8F517389DB65}|backend\\Marginalia.API\\Marjinalia.API.csproj|c:\\master folder\\is 413 - enterprise app dev\\marginalia\\backend\\marginalia.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BB33CA1B-78C9-291F-ADF0-8F517389DB65}|backend\\Marginalia.API\\Marjinalia.API.csproj|solutionrelative:backend\\marginalia.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9C5DC966-D713-27E3-FB18-4515785D875B}|backend\\Marginalia.API\\Marginalia.API.csproj|c:\\master folder\\is 413 - enterprise app dev\\marginalia\\backend\\marginalia.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C5DC966-D713-27E3-FB18-4515785D875B}|backend\\Marginalia.API\\Marginalia.API.csproj|solutionrelative:backend\\marginalia.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BB33CA1B-78C9-291F-ADF0-8F517389DB65}|backend\\Marginalia.API\\Marjinalia.API.csproj|c:\\master folder\\is 413 - enterprise app dev\\marginalia\\backend\\marginalia.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{BB33CA1B-78C9-291F-ADF0-8F517389DB65}|backend\\Marginalia.API\\Marjinalia.API.csproj|solutionrelative:backend\\marginalia.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{9C5DC966-D713-27E3-FB18-4515785D875B}|backend\\Marginalia.API\\Marginalia.API.csproj|c:\\master folder\\is 413 - enterprise app dev\\marginalia\\backend\\marginalia.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{9C5DC966-D713-27E3-FB18-4515785D875B}|backend\\Marginalia.API\\Marginalia.API.csproj|solutionrelative:backend\\marginalia.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BB33CA1B-78C9-291F-ADF0-8F517389DB65}|backend\\Marginalia.API\\Marjinalia.API.csproj|c:\\master folder\\is 413 - enterprise app dev\\marginalia\\backend\\marginalia.api\\controllers\\bookcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BB33CA1B-78C9-291F-ADF0-8F517389DB65}|backend\\Marginalia.API\\Marjinalia.API.csproj|solutionrelative:backend\\marginalia.api\\controllers\\bookcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9C5DC966-D713-27E3-FB18-4515785D875B}|backend\\Marginalia.API\\Marginalia.API.csproj|c:\\master folder\\is 413 - enterprise app dev\\marginalia\\backend\\marginalia.api\\controllers\\bookcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C5DC966-D713-27E3-FB18-4515785D875B}|backend\\Marginalia.API\\Marginalia.API.csproj|solutionrelative:backend\\marginalia.api\\controllers\\bookcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [

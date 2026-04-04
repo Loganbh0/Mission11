@@ -1,3 +1,4 @@
+/** Single book row as returned by the API and used across browse, cart, and admin. */
 export type Book = {
   bookId: number
   title: string
