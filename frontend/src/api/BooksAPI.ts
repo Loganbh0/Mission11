@@ -1,3 +1,7 @@
+/**
+ * Typed `fetch` helpers for the Book API (admin list + create / update / delete).
+ * Base URL and JSON shape normalization: `../utils/bookPayload`.
+ */
 import type { Book } from '../types/Book'
 import {
   BOOKS_API_BASE,
@@ -6,6 +10,9 @@ import {
 } from '../utils/bookPayload'
 import type { PagedBooks } from '../types/PagedBooks'
 
+/**
+ * GET paged books for the admin table (fixed `sortBy=id` in query; matches backend admin listing).
+ */
 export async function fetchAdminBooksPage(
   page: number,
   pageSize: number
@@ -23,6 +30,9 @@ export async function fetchAdminBooksPage(
   return normalizePagedBooks(data)
 }
 
+/**
+ * POST a new book; server assigns `bookId`. Throws with status + body snippet on failure.
+ */
 export async function addBook(book: Book): Promise<Book> {
   const response = await fetch(`${BOOKS_API_BASE}/AddBook`, {
     method: 'POST',
@@ -39,6 +49,9 @@ export async function addBook(book: Book): Promise<Book> {
   return normalizeBook(data)
 }
 
+/**
+ * PUT full book payload for an existing id.
+ */
 export async function updateBook(bookId: number, book: Book): Promise<Book> {
   const response = await fetch(`${BOOKS_API_BASE}/UpdateBook/${bookId}`, {
     method: 'PUT',
@@ -55,6 +68,9 @@ export async function updateBook(bookId: number, book: Book): Promise<Book> {
   return normalizeBook(data)
 }
 
+/**
+ * DELETE by id; no response body on success.
+ */
 export async function deleteBook(bookId: number): Promise<void> {
   const response = await fetch(`${BOOKS_API_BASE}/DeleteBook/${bookId}`, {
     method: 'DELETE'

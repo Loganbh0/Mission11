@@ -1,9 +1,14 @@
+/**
+ * `BOOKS_API_BASE` points at the deployed Book API (`.../api/Book`).
+ * Normalizers accept either PascalCase or camelCase JSON from ASP.NET to keep the React `Book` type stable.
+ */
 import type { Book } from "../types/Book";
 import type { PagedBooks } from "../types/PagedBooks";
 
 export const BOOKS_API_BASE =
   "https://marginalia-hanson-backend-dkbgayffbhc8bde8.eastus-01.azurewebsites.net/api/Book";
 
+/** Map one API book object to the frontend Book shape. */
 export function normalizeBook(raw: any): Book {
   return {
     bookId: raw.bookId ?? raw.BookId ?? 0,
@@ -18,6 +23,7 @@ export function normalizeBook(raw: any): Book {
   };
 }
 
+/** Map paged API payload (items + metadata) to PagedBooks. */
 export function normalizePagedBooks(raw: any): PagedBooks {
   const itemsRaw = raw?.items ?? raw?.Items ?? [];
 
@@ -37,6 +43,7 @@ export function normalizePagedBooks(raw: any): PagedBooks {
   };
 }
 
+/** Distinct category strings from GET /categories. */
 export function normalizeCategories(raw: unknown): string[] {
   if (!Array.isArray(raw)) {
     return [];

@@ -1,3 +1,6 @@
+/**
+ * Admin “edit book” form: copies `book` into local state, PUT via `updateBook(bookId, ...)`.
+ */
 import { useState } from 'react'
 import type { Book } from '../types/Book'
 import { updateBook } from '../api/BooksAPI'
@@ -16,6 +19,7 @@ export default function EditBookForm({
   const [formData, setFormData] = useState<Book>({ ...book })
   const [submitError, setSubmitError] = useState<string | null>(null)
 
+  /** Same mapping rules as NewBookForm: numbers for page count and price. */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     if (name === 'pageCount' || name === 'price') {
@@ -29,6 +33,7 @@ export default function EditBookForm({
     setFormData({ ...formData, [name]: value })
   }
 
+  /** PUTs full `formData` for `formData.bookId`; `onSuccess` closes the form in the parent. */
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setSubmitError(null)

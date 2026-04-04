@@ -1,3 +1,12 @@
+/**
+ * Browse catalog (home page body): public book list with server-side paging and filters.
+ *
+ * - `writeStoredBrowseView` / `readStoredBrowseView`: remember page, page size, sort, and category between visits
+ *   (same browser tab session) for “Continue shopping”.
+ * - Categories: one GET on mount for the dropdown; failures leave only “All categories”.
+ * - Books: GET `/paged` whenever page, page size, sort, or category changes; uses `isCancelled` to ignore stale responses.
+ * - Each card calls `addToCart` with the list price as `unitPrice`.
+ */
 import { useEffect, useState } from 'react'
 import { useCart } from '../context/CartContext'
 import type { Book } from '../types/Book'
@@ -30,6 +39,7 @@ export default function BookList() {
   const [totalCount, setTotalCount] = useState(0)
   const [totalPages, setTotalPages] = useState(0)
 
+  // Persist browse state so "Continue shopping" and reloads restore the same view
   useEffect(() => {
     writeStoredBrowseView({
       page,
@@ -39,9 +49,11 @@ export default function BookList() {
     })
   }, [page, pageSize, sortBy, categoryFilter])
 
+  // One-time fetch of distinct categories for the filter dropdown
   useEffect(() => {
     let isCancelled = false
 
+    /** GET categories for the filter `<select>`; silent no-op on error. */
     async function loadCategories() {
       try {
         const res = await fetch(`${BOOKS_API_BASE}/categories`)
@@ -64,9 +76,13 @@ export default function BookList() {
     }
   }, [])
 
+  // Paged book list; depends on filters — server returns normalized page bounds
   useEffect(() => {
     let isCancelled = false
 
+    /**
+     * GET paged books with query params; normalizes response and syncs local page bounds with the server.
+     */
     async function loadBooks() {
       try {
         setLoading(true)
@@ -119,12 +135,14 @@ export default function BookList() {
     return <p style={{ textAlign: 'left', color: 'red' }}>{error}</p>
   }
 
+  // Prev/Next only matter when there is more than one page of results
   const showPagination = totalCount > 0 && totalPages > 1
 
   return (
     <div className="py-2">
       {loading ? <p className="mb-3">Loading books...</p> : null}
 
+      {/* Summary line + category / page size / sort + prev-next */}
       <div className="book-header d-flex justify-content-between align-items-center mb-4 gap-3">
         <div className="text-start">
           <p className="mb-0">
@@ -212,6 +230,7 @@ export default function BookList() {
         </p>
       ) : null}
 
+      {/* Responsive cards: metadata + add to cart */}
       <div className="row g-3">
         {books.map((book) => (
           <div className="col-12 col-md-6 col-lg-4" key={book.bookId}>

@@ -1,3 +1,7 @@
+/**
+ * Admin pager: previous/next, one button per page number, and page-size select.
+ * Changing size calls `onPageSizeChange` then jumps to page 1 via the parent callback.
+ */
 interface PaginationProps {
   currentPage: number
   totalPages: number

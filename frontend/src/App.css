@@ -1,3 +1,4 @@
+/* --- Vite starter demo styles (counter / hero) — kept for compatibility --- */
 .counter {
   font-size: 16px;
   padding: 5px 10px;
@@ -17,6 +18,7 @@
   }
 }
 
+/* Hero graphics (Vite starter) */
 .hero {
   position: relative;
 
@@ -56,6 +58,7 @@
   }
 }
 
+/* Center column layout (Vite starter) */
 #center {
   display: flex;
   flex-direction: column;
@@ -70,6 +73,7 @@
   }
 }
 
+/* Footer “next steps” grid (Vite starter) */
 #next-steps {
   display: flex;
   border-top: 1px solid var(--border);

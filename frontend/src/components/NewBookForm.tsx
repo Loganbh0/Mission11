@@ -1,3 +1,7 @@
+/**
+ * Admin “add book” form: controlled inputs for all `Book` fields, POST via `addBook`.
+ * `bookId` stays 0 until the server returns the created row (parent may refetch the list).
+ */
 import { useState } from 'react'
 import type { Book } from '../types/Book'
 import { addBook } from '../api/BooksAPI'
@@ -21,6 +25,7 @@ export default function NewBookForm({ onSuccess, onCancel }: NewBookFormProps) {
     price: 0
   })
 
+  /** Maps input `name` to state; coerces `pageCount` and `price` to numbers. */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     if (name === 'pageCount' || name === 'price') {
@@ -34,6 +39,7 @@ export default function NewBookForm({ onSuccess, onCancel }: NewBookFormProps) {
     setFormData({ ...formData, [name]: value })
   }
 
+  /** POSTs `formData`; on success runs `onSuccess`; on failure shows `submitError`. */
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setSubmitError(null)

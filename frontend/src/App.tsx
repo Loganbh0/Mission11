@@ -1,3 +1,13 @@
+/**
+ * Application shell: wraps the SPA in `CartProvider` and `BrowserRouter`.
+ *
+ * Routes:
+ * - `/` — BrowsePage (catalog)
+ * - `/cart` — CartPage (session cart)
+ * - `/adminbooks` — AdminBooksPage (CRUD)
+ *
+ * Cart state lives in context + sessionStorage (see CartContext); API base URL is in bookPayload.
+ */
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import { CartProvider } from './context/CartContext'

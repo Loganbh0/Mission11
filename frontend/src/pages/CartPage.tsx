@@ -1,3 +1,10 @@
+/**
+ * Cart route (`/cart`): shows session cart line items from `CartContext`.
+ *
+ * - Table: per-line unit price, quantity stepper (`updateQuantity`), line subtotal, remove.
+ * - Grand total uses `cartTotal` (sum of unitPrice × quantity).
+ * - Checkout is disabled (demo); “Continue shopping” runs `navigate('/')` so browse state can restore.
+ */
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import {
@@ -18,6 +25,7 @@ export default function CartPage() {
         Your cart
       </h2>
 
+      {/* Empty state vs. line item table */}
       {cart.length === 0 ? (
         <p className="text-muted">Your cart is empty.</p>
       ) : (
@@ -87,12 +95,14 @@ export default function CartPage() {
         </div>
       )}
 
+      {/* Grand total (only when there is at least one line) */}
       {cart.length > 0 ? (
         <p className="fs-5 fw-semibold text-book-accent mt-3">
           Total: ${total.toFixed(2)}
         </p>
       ) : null}
 
+      {/* Demo actions: no real checkout; return to home for more browsing */}
       <div className="d-flex flex-wrap gap-2 mt-4">
         <button type="button" className="btn btn-book-accent" disabled>
           Checkout

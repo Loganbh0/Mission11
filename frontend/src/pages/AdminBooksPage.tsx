@@ -1,3 +1,12 @@
+/**
+ * Admin route (`/adminbooks`): book CRUD for instructors / grading (Mission 13).
+ *
+ * Data flow:
+ * - `useEffect` loads `fetchAdminBooksPage(page, pageSize)` when paging changes (shows loading + errors).
+ * - `refreshList` refetches the same page after edit success (no full loading spinner).
+ * - `handleDeleteBook` confirms, calls `deleteBook`, then refetches.
+ * - Add: toggles `NewBookForm`; Edit: sets `editingBook` for `EditBookForm`.
+ */
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import type { Book } from '../types/Book'
@@ -7,16 +16,25 @@ import NewBookForm from '../components/NewBookForm'
 import EditBookForm from '../components/EditBookForm'
 
 export default function AdminBooksPage() {
+  // Rows + request status for the main GET
   const [books, setBooks] = useState<Book[]>([])
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
+
+  // Pagination (admin defaults to 10 per page; user can change via Pagination)
   const [pageSize, setPageSize] = useState(10)
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(0)
+
+  // UI mode: create form vs which row is being edited
   const [showForm, setShowForm] = useState(false)
   const [editingBook, setEditingBook] = useState<Book | null>(null)
 
+  // Initial load and whenever the user changes page or page size
   useEffect(() => {
+    /**
+     * Loads one page of books for the admin table (backend sorts by id for this list).
+     */
     const loadBooks = async () => {
       try {
         setLoading(true)
@@ -34,6 +52,9 @@ export default function AdminBooksPage() {
     loadBooks()
   }, [page, pageSize])
 
+  /**
+   * Called after a successful edit save: reloads items for the current page without the global loading flag.
+   */
   const refreshList = () => {
     fetchAdminBooksPage(page, pageSize).then((data) => {
       setBooks(data.items)
@@ -41,6 +62,9 @@ export default function AdminBooksPage() {
     })
   }
 
+  /**
+   * Confirms with the user, DELETEs the book, then reloads the current page.
+   */
   const handleDeleteBook = async (bookId: number) => {
     const confirmDelete = window.confirm(
       'Are you sure you want to delete this book?'
@@ -64,6 +88,7 @@ export default function AdminBooksPage() {
 
   return (
     <div className="py-2 text-start">
+      {/* Page title + return to storefront */}
       <div className="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
         <h2 className="h4 mb-0 text-book-accent d-flex align-items-center gap-2">
           <i className="bi bi-journal-text" aria-hidden="true" />
@@ -74,6 +99,7 @@ export default function AdminBooksPage() {
         </Link>
       </div>
 
+      {/* Toggle “Add book” panel */}
       {!showForm ? (
         <button
           type="button"
@@ -97,6 +123,7 @@ export default function AdminBooksPage() {
         />
       ) : null}
 
+      {/* Inline edit for the row selected in `editingBook` */}
       {editingBook ? (
         <EditBookForm
           book={editingBook}
@@ -108,6 +135,7 @@ export default function AdminBooksPage() {
         />
       ) : null}
 
+      {/* Read-only grid of books on this page */}
       <div className="table-responsive">
         <table className="table table-sm align-middle book-card border rounded overflow-hidden">
           <thead className="table-light">
@@ -162,6 +190,7 @@ export default function AdminBooksPage() {
         </table>
       </div>
 
+      {/* Numeric pager + page size (changing size jumps to page 1) */}
       <Pagination
         currentPage={page}
         totalPages={totalPages}

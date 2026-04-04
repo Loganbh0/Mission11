@@ -1,3 +1,6 @@
+/**
+ * Browse header widget: line count, cart total, and a link to `/cart`.
+ */
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import { cartTotal } from '../types/CartLineItem'
